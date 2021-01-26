@@ -83,22 +83,22 @@ class Fig {
     }
     
     public static void main(String[] args) {
-      System.out.println("##TEST 1##");
+      System.out.println("##TEST 1 - aba, ababaaba");
       System.out.println(highlightOverlapping("aba", "ababaaba"));
       
-      System.out.println("\n##TEST 2##");
+      System.out.println("\n##TEST 2 - fig, configure figure");
       System.out.println(highlightOverlapping("fig", "configure figure"));
       
-      System.out.println("\n##TEST 3##");
+      System.out.println("\n##TEST 3 - fig, No occurrences here");
       System.out.println(highlightOverlapping("fig", "No occurrences here"));
 
-      System.out.println("\n##TEST 4##");
+      System.out.println("\n##TEST 4 - sid, sid");
       System.out.println(highlightOverlapping("sid", "sid"));
 
-      System.out.println("\n##TEST 5##");
+      System.out.println("\n##TEST 5 - sid, null");
       System.out.println(highlightOverlapping("sid", null));
 
-      System.out.println("\n##TEST 6##");
+      System.out.println("\n##TEST 6 - \"\", testing 123");
       System.out.println(highlightOverlapping("", "testing 123"));
     }
     
