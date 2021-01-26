@@ -4,7 +4,7 @@ import java.util.*;
 class Fig {
   
   // Given an input string and a query, implement a function `highlight` that highlights all occurrences of the query with bold tag:
-  // highlight("fig", "configure figma") => "con<b>fig</b>ure <b>fig</b>ma"
+  // highlight("fig", "configure figure") => "con<b>fig</b>ure <b>fig</b>ma"
   //
   //. figfigfig
   //  fifigg
@@ -19,6 +19,10 @@ class Fig {
   //
   // You may use any helper functions/libraries that come with your chosen language and use Google to look up their interface definition
   // (eg: `text.substring(x, y) == query` or `text.indexOf(query)`)
+
+    /** 
+    Rudimentary implementation
+    **/
     public static String highlight(String query, String text) {
       String result = "";      
       String replacementString = "<b>" + query + "</b>";
@@ -27,17 +31,20 @@ class Fig {
       return result;
     }
 
+    /** 
+    A more sophisticated implementation accounting for overlaps.
+    **/
     public static String highlightOverlapping(String query, String text) {
       if (text == null) {
           return null;
       }
-
       if (query == null || query.length() < 1) {
         return text;
       }
 
       String replacementString = "<b>" + query + "</b>";
       
+      // Find all beginning indices of occurences.
       ArrayList<Integer> indices = new ArrayList<>();
       int index = text.indexOf(query);
       while(index >= 0) {
@@ -46,23 +53,24 @@ class Fig {
       }
 
       if (indices.size() < 1) {
-          // No occurences found
+          // No occurences were found.
         return text;
       }
 
+      // Reduce array by 'absorbing' all overlapping indices.
       ArrayList<Pair> result = reduceArray(indices, query.length());
       System.out.println(result);
 
       StringBuilder emboldenedString = new StringBuilder();
       int start = 0;
-      // sandwich string with bold tags
+      // sandwich substrings with bold tags
       for (Pair pair: result) {
           emboldenedString.append(text.substring(start, pair.first));
           emboldenedString.append(emboldenedString(text.substring(pair.first, pair.last + 1)));
           start = pair.last + 1;
       }
 
-      // Take care of remaining string, if any
+      // Take care of remaining string, if any left.
       if (start < text.length()) {
         emboldenedString.append(text.substring(start));
       }
@@ -79,7 +87,7 @@ class Fig {
       System.out.println(highlightOverlapping("aba", "ababaaba"));
       
       System.out.println("\n##TEST 2##");
-      System.out.println(highlightOverlapping("fig", "configure figma"));
+      System.out.println(highlightOverlapping("fig", "configure figure"));
       
       System.out.println("\n##TEST 3##");
       System.out.println(highlightOverlapping("fig", "No occurrences here"));
@@ -109,12 +117,15 @@ class Fig {
       
     }
   
+    /**
+    Given an array such as 0 2 4 6 11 13 15 and an 'increment', reduces the array into pairs absorbing
+    any overlapping indices within the increment, as well as adding the increment to the second pair element for our use case.
+    
+    E.g. [0 2 4 6 11 13] and an increment of 3 will return
+         [(0, 8) (11, 16)]
+    **/
     private static ArrayList<Pair> reduceArray(ArrayList<Integer> array, int increment) {
         ArrayList<Pair> reducedArray = new ArrayList<Pair>();
-        // 0 2 4 6 11 13 15 
-        // (0, 8) 11, 17
-        // 0 2 4
-
         int index = 0;
         int first = array.get(0);
         Pair absorbedSubArray = new Pair(first, first + increment - 1);
