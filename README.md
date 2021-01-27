@@ -29,4 +29,12 @@ null
 
 ##TEST 6 - "", testing 123
 testing 123
+
+##TEST 7 - abaa, abaabaabcc
+[0,6]
+<b>abaabaa</b>bcc
+
+##TEST 7 - abaa, abaaabaabcc
+[0,3, 4,7]
+<b>abaa</b><b>abaa</b>bcc
 ```

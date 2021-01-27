@@ -100,6 +100,12 @@ class Fig {
 
       System.out.println("\n##TEST 6 - \"\", testing 123");
       System.out.println(highlightOverlapping("", "testing 123"));
+
+      System.out.println("\n##TEST 7 - abaa, abaabaabcc");
+      System.out.println(highlightOverlapping("abaa", "abaabaabcc"));
+
+      System.out.println("\n##TEST 7 - abaa, abaaabaabcc");
+      System.out.println(highlightOverlapping("abaa", "abaaabaabcc"));
     }
     
     private static class Pair {
